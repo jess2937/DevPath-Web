@@ -67,7 +67,6 @@ To run this project locally, you'll need your own Firebase project:
 2. **Enable Services**:
    - **Authentication**: Enable Email/Password or Google provider.
    - **Firestore**: Create a database in test mode (or apply the rules in `firestore.rules`).
-   - **Storage**: Enable default bucket (or apply the rules in `storage.rules`).
 3. **Register a Web App**: Add a "Web App" to your Firebase project to get your configuration object.
 4. **Fill `.env.local`**: Copy the values from your Firebase config object into your `.env.local` file.
 5. **Install Firebase CLI**: `npm install -g firebase-tools`
