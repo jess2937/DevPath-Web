@@ -1,8 +1,8 @@
-# DevPath Community Website
+# DevPath India Community Website
 
 ![DevPath Logo](public/logo.png)
 
-Welcome to the official repository for the **DevPath Community Website**. This platform is designed to foster collaboration, share resources, manage events, and connect developers within the DevPath community. Built with the latest web technologies, it offers a modern, responsive, and interactive user experience.
+Welcome to the official repository for the **DevPath India Community Website**. This platform is designed to foster collaboration, share resources, manage events, and connect developers within the DevPath India community. Built with the latest web technologies, it offers a modern, responsive, and interactive user experience.
 
 ## 🚀 Features
 
@@ -108,17 +108,17 @@ We are committed to providing a friendly, safe, and welcoming environment for al
 
 ## 📄 License & Brand Protection
 
-This project is licensed under a custom **DevPath Source-Available License**. See the [LICENSE](LICENSE) file for full details.
+This project is licensed under a custom **DevPath India Source-Available License**. See the [LICENSE](LICENSE) file for full details.
 
 > [!WARNING]
 > **Important Licensing Terms:**
 > - You **may** clone, run, and modify this code locally to learn or submit contributions.
 > - You **may NOT** use this software for commercial purposes or host it publicly as a competing platform/clone.
-> - The **"DevPath"** name, logos, and brand identity are strictly copyrighted and trademarked. They cannot be used in derivative works without explicit permission.
+> - The **"DevPath India"** name, logos, and brand identity are strictly copyrighted and trademarked. They cannot be used in derivative works without explicit permission.
 
 ---
 
-Built with ❤️ by the DevPath Community.
+Built with ❤️ by the DevPath India Community.
 
 ## 🌟 Major Contributors
 
