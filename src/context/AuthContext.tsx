@@ -112,29 +112,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
             if (firebaseUser) {
                 try {
-                    // SUPER ADMIN BYPASS
-                    if (firebaseUser.email === SUPER_ADMIN_EMAIL) {
-                        const superAdminUser: User = {
-                            uid: firebaseUser.uid,
-                            email: firebaseUser.email,
-                            name: "Super Admin",
-                            photoURL: firebaseUser.photoURL,
-                            role: 'admin',
-                            // Minimal required fields to prevent crashes
-                            privacySettings: {
-                                showMobile: false,
-                                showLocation: false,
-                                showEmail: false,
-                                showProjects: false,
-                                showRewards: false,
-                                isPublic: false,
-                                showInCommunity: false
-                            }
-                        };
-                        setUser(superAdminUser);
-                        setIsLoading(false);
-                        return;
-                    }
+                    // REMOVED SUPER ADMIN BYPASS: The super admin now goes through the standard listener flow.
+                    // This ensures their session is tracked and they are validated securely via Firestore `admins` collection.
 
                     let role: 'admin' | 'member' = 'member';
                     let userData: any = {

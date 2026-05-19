@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState } from 'react';
 import { Trophy, Zap, ArrowUpCircle, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '@/context/AuthContext';
 
 export type NotificationType = 'xp' | 'achievement' | 'level-up';
 
@@ -109,9 +110,10 @@ const ToastMessage = ({ n, removeNotification }: { n: any, removeNotification: (
 };
 
 export function GamificationProvider({ children }: { children: React.ReactNode }) {
-    const [xp, setXp] = useState(125400);
+    const { user, updateUserProfile } = useAuth();
     const [notifications, setNotifications] = useState<{ id: number; title: string; subtitle: string; type: NotificationType }[]>([]);
 
+    const xp = user?.points || 0;
     const level = Math.floor(Math.sqrt(xp / 100));
 
     const removeNotification = (id: number) => {
@@ -119,37 +121,38 @@ export function GamificationProvider({ children }: { children: React.ReactNode }
     };
 
     const addXp = (amount: number, reason: string, type: NotificationType = 'xp') => {
-        setXp(prev => {
-            const newXp = prev + amount;
-            const currentLevel = Math.floor(Math.sqrt(prev / 100));
-            const newLevel = Math.floor(Math.sqrt(newXp / 100));
-            
-            const baseId = Date.now();
-            const newNotifications = [{ 
-                id: baseId, 
-                title: type === 'achievement' ? 'Achievement Unlocked' : `+${amount} XP`, 
-                subtitle: reason, 
-                type 
-            }];
-            
-            if (newLevel > currentLevel) {
-                newNotifications.push({ 
-                    id: baseId + 1, 
-                    title: `Level Up!`, 
-                    subtitle: `You reached Level ${newLevel}`, 
-                    type: 'level-up' 
-                });
-            }
-            
-            setNotifications(prevNotifs => [...prevNotifs, ...newNotifications]);
-            
-            newNotifications.forEach(n => {
-                setTimeout(() => {
-                    removeNotification(n.id);
-                }, 4000);
+        if (!user) return; // Must be logged in
+
+        const newXp = xp + amount;
+        const currentLevel = Math.floor(Math.sqrt(xp / 100));
+        const newLevel = Math.floor(Math.sqrt(newXp / 100));
+        
+        // Persist XP to Firestore securely
+        updateUserProfile({ points: newXp }).catch(err => console.error("Failed to update XP", err));
+
+        const baseId = Date.now();
+        const newNotifications = [{ 
+            id: baseId, 
+            title: type === 'achievement' ? 'Achievement Unlocked' : `+${amount} XP`, 
+            subtitle: reason, 
+            type 
+        }];
+        
+        if (newLevel > currentLevel) {
+            newNotifications.push({ 
+                id: baseId + 1, 
+                title: `Level Up!`, 
+                subtitle: `You reached Level ${newLevel}`, 
+                type: 'level-up' 
             });
-            
-            return newXp;
+        }
+        
+        setNotifications(prevNotifs => [...prevNotifs, ...newNotifications]);
+        
+        newNotifications.forEach(n => {
+            setTimeout(() => {
+                removeNotification(n.id);
+            }, 4000);
         });
     };
 

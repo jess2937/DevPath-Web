@@ -11,6 +11,7 @@ import styles from '@/components/profile/Profile.module.css';
 import Rewards from '@/components/profile/Rewards';
 import FollowButton from '@/components/profile/FollowButton';
 import LoginHeatmap from '@/components/profile/LoginHeatmap';
+import DOMPurify from 'dompurify';
 import { useSearchParams } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { GIT_FALLBACK_STATS } from '@/lib/github';
@@ -854,7 +855,7 @@ function ProfileContent() {
 
                                 {/* Description */}
                                 <div className="prose dark:prose-invert max-w-none">
-                                    <div dangerouslySetInnerHTML={{ __html: selectedProject.description }} />
+                                    <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(selectedProject.description) }} />
                                 </div>
 
                                 {/* Links & Skills */}

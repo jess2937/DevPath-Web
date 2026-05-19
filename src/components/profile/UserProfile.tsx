@@ -15,6 +15,7 @@ import Rewards from '@/components/profile/Rewards';
 import FollowButton from '@/components/profile/FollowButton';
 import LoginHeatmap from '@/components/profile/LoginHeatmap';
 import ReactMarkdown from 'react-markdown';
+import DOMPurify from 'dompurify';
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
 import { collection, query, where, orderBy, getDocs, doc, updateDoc, arrayUnion, increment } from 'firebase/firestore';
@@ -953,7 +954,7 @@ export default function UserProfile() {
 
                             {/* Description */}
                             <div className="prose dark:prose-invert max-w-none">
-                                <div dangerouslySetInnerHTML={{ __html: selectedProject.description }} />
+                                <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(selectedProject.description) }} />
                             </div>
 
                             {/* Links & Skills */}

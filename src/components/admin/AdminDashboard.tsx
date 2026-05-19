@@ -1038,7 +1038,10 @@ export default function AdminDashboard({ initialAuth = false }: AdminDashboardPr
 
                 // Rotate Key if not auto-login (fresh login)
                 if (!isAuto) {
-                    const newAdminKey = `devpath-admin-${Math.random().toString(36).substring(2, 10)}${Math.random().toString(36).substring(2, 6)}`;
+                    const array = new Uint8Array(32);
+                    crypto.getRandomValues(array);
+                    const randomHex = Array.from(array, b => b.toString(16).padStart(2, '0')).join('').substring(0, 16);
+                    const newAdminKey = `devpath-admin-${randomHex}`;
 
                     // Update Key
                     await setDoc(doc(db, 'superadmin_keys', 'config'), {
